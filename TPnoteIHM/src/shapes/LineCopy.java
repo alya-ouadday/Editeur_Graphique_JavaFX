@@ -4,7 +4,7 @@ import javafx.scene.shape.Line;
 import javafx.scene.shape.Shape;
 
 public class LineCopy extends Line {
-
+	//represente copie d'une ligne 
 	public LineCopy(Line l) {
 		this.setStrokeWidth(l.getStrokeWidth());
 		this.setStroke(l.getStroke());
