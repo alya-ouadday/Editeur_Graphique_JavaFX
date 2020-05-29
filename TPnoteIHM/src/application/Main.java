@@ -15,6 +15,7 @@ public class Main extends Application
 			Parent root = FXMLLoader.load(getClass().getResource("TP4sample2.fxml"));
 			Scene scene = new Scene(root);
 			primaryStage.setScene(scene);
+			primaryStage.setTitle("Graphical Editor");
 			primaryStage.show();
 		} 
 		catch(Exception e) 

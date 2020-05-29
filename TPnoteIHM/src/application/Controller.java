@@ -15,6 +15,9 @@ import javafx.scene.shape.Ellipse;
 import javafx.scene.shape.Line;
 import javafx.scene.shape.Rectangle;
 import javafx.scene.shape.Shape;
+import shapes.EllipseCopy;
+import shapes.LineCopy;
+import shapes.RectangleCopy;
 
 public class Controller {
 
@@ -63,6 +66,26 @@ public class Controller {
     	double xDepart = 0;
     	double yDepart = 0;
     	
+    	
+    	radioBtnLine.setOnAction(event -> {
+    		if(selectedShape != null) {
+    			selectedShape.setOpacity(1);
+    	}	
+    	});
+    	
+    	radioBtnRectangle.setOnAction(event -> {
+    		if(selectedShape != null) {
+    			selectedShape.setOpacity(1);
+    	}	
+    	});
+    	
+    	radioBtnEllipse.setOnAction(event -> {
+    		if(selectedShape != null) {
+    			selectedShape.setOpacity(1);
+    	}	
+    	});
+    	
+    	
     	btnDelete.setOnAction(event -> {
     		if(radioBtnSelect.isSelected()) {
     			if(selectedShape != null) {
@@ -74,12 +97,23 @@ public class Controller {
     	btnClone.setOnAction(event -> {
     		if(radioBtnSelect.isSelected()) {
     			if(selectedShape != null) {
+    				
     				if(selectedShape instanceof Line) {
-    					Line tocopy = (Line)selectedShape;
-    					Line copy = new Line(tocopy.getStartX() + 10, tocopy.getStartY(), tocopy.getEndX()+10, tocopy.getEndY());
-    					copy.setStrokeWidth(tocopy.getStrokeWidth());
-    					copy.setStroke(colorPicker.getValue());
-    					addLine(copy); 
+    					
+    					Line l = (Line) selectedShape;
+    					LineCopy copyL = new LineCopy(l);
+    					addLine(copyL); 
+    				}
+    				
+    				else if(selectedShape instanceof Rectangle) {
+    					Rectangle r = (Rectangle)selectedShape; 
+    					RectangleCopy copyR = new RectangleCopy(r); 
+    					addRectangle(copyR); 
+    				}
+    				else if(selectedShape instanceof Ellipse) {
+    					Ellipse e = (Ellipse)selectedShape; 
+    					EllipseCopy copyE = new EllipseCopy(e); 
+    					addEllipse(copyE); 
     				}
     				
     			}
@@ -238,14 +272,13 @@ public class Controller {
 	   private Line addLine(double x, double y) {
 	        Line l = new Line(xDep, yDep, x, y);
 	        l.setStroke(colorPicker.getValue());
-	        l.setStrokeWidth(10);
+	        l.setStrokeWidth(7);
 	        return addLine(l);
 	        
 	   }
 	   
-	   private Ellipse addEllipse(double x, double y) {
-		   Ellipse e= new Ellipse(xDep, yDep, x, y);
-		   e.setFill(colorPicker.getValue());
+	   private Ellipse addEllipse(Ellipse e) {
+		   
 		   anchor.getChildren().add(e);
 		   listeEllipse.add(e); 
 		   listeShape.add(e); 
@@ -283,10 +316,14 @@ public class Controller {
 		   return e; 
 		   
 	   }
+
+	   private Ellipse addEllipse(double x, double y) {
+		   Ellipse e= new Ellipse(xDep, yDep, x, y);
+		   e.setFill(colorPicker.getValue());
+		   return addEllipse(e); 
+	   }
 	   
-	   private Rectangle addRectangle(double x, double y) {
-		   Rectangle r= new Rectangle(xDep, yDep, x, y);
-		   r.setFill(colorPicker.getValue());
+	   private Rectangle addRectangle(Rectangle r) {
 		   anchor.getChildren().add(r);
 		   listeRectangle.add(r); 
 		   listeShape.add(r); 
@@ -325,5 +362,11 @@ public class Controller {
                }});
         
 		   return r; 
+	   }
+	   private Rectangle addRectangle(double x, double y) {
+		   Rectangle r= new Rectangle(xDep, yDep, x, y);
+		   r.setFill(colorPicker.getValue()); 
+        
+		   return addRectangle(r); 
 	   }
 }
